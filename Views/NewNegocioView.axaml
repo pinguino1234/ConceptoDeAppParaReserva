@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Width="350" Height="800"
+		xmlns:vm="using:ConceptoDeAppParaReserva.ViewModels"
+		x:DataType="vm:NewNegocioViewModel"
+        x:Class="ConceptoDeAppParaReserva.NewNegocioView"
+		WindowStartupLocation="CenterScreen"
+        Title="Agregar Negocio">
+
+	<StackPanel>
+		<StackPanel Margin="10">
+			<TextBlock Text="Nombre de Negocio: " Margin="2"/>
+			<TextBox Name="txtNombre" Watermark="Nombre" Text="{Binding Nombre}"/>
+		</StackPanel>
+
+		<StackPanel Margin="10">
+			<TextBlock Text="Direccion: " Margin="2"/>
+			<TextBox Name="txtDireccion" Watermark="Direccion" Text="{Binding Direccion}"/>
+		</StackPanel>
+
+		<StackPanel Margin="10">
+			<TextBlock Text="Descripcion: " Margin="2"/>
+			<TextBox Name="txtDescripcion" Watermark="Descripcion" AcceptsReturn="True" Text="{Binding Descripcion}"/>
+		</StackPanel>
+
+		<StackPanel Margin="10">
+			<TextBlock Text="Minimo De Personas: " Margin="2"/>
+			<NumericUpDown Name="MinPersonas" Increment="1" Value="1" Text="{Binding Min}"/>
+		</StackPanel>
+
+		<StackPanel Margin="10">
+			<TextBlock Text="Maximo De Personas: " Margin="2"/>
+			<NumericUpDown Name="MaxPersonas" Increment="1" Value="1" Text="{Binding Max}"/></StackPanel>
+
+		<StackPanel Margin="10">
+			<TextBlock Text="Intervalo de Reserva: " Margin="2"/>
+			<NumericUpDown Name="Intervalo" Increment="1" Value="1" Text="{Binding Intervalo}"/>
+		</StackPanel>
+		
+		<Button Content="Guardar" Command="{Binding AddNewNegocio}"  CommandParameter="New Message"/>
+	</StackPanel>
+</Window>

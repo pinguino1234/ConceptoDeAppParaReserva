@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ConceptoDeAppParaReserva.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Width="550" Height="800"
+        x:Class="ConceptoDeAppParaReserva.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="App para Reserva">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Grid RowDefinitions="Auto, *, auto" ShowGridLines="False">
+		<TextBox
+			BorderThickness="0 0 0 2"
+			BorderBrush="Blue"
+			Margin="4"
+			Padding="35 5 0 0"
+			Watermark="Buscar un lugar...">
+
+			<TextBox.Styles>
+				<Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+					<Setter Property="BorderBrush" Value="Blue"/>
+					<Setter Property="BorderThickness" Value="0 0 0 2"/>
+				</Style>
+			</TextBox.Styles>
+		</TextBox>
+		
+		<Image Source="/Assets/search_64.png" Width="32" HorizontalAlignment="Left"/>
+
+		<Grid Grid.Row="1">
+			<TextBlock IsVisible="{Binding !IsVisible}"
+				Text="Sin Comercios Registrados" 
+				VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+			<ItemsRepeater ItemsSource="{Binding Negocio}" >
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Grid ShowGridLines="False" ColumnDefinitions="auto, *, auto, auto">
+							<Image Width="64" Source="avares://ConceptoDeAppParaReserva/Assets/no_image_64.png"/>
+
+							<StackPanel Grid.Column="1" Margin="20 20 10 10" >
+								<TextBlock Text="{Binding Nombre}" FontWeight="Bold" FontSize="18"/>
+								<TextBlock Text="{Binding Direccion}" Foreground="Gray"/>
+								<TextBlock Text="{Binding Descripcion}" FontSize="16" Margin="0 10 0 0"/>
+							</StackPanel>
+
+							<Grid Grid.Column="2" Margin="15 0 15 0">
+								<Image Source="/Assets/people_64.png" Width="64"/>
+								<TextBlock FontSize="16" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+									<TextBlock.Text>
+										<MultiBinding StringFormat="{}{0} - {1}">
+											<Binding Path="MinPersonas"/>
+											<Binding Path="MaxPersonas"/>
+										</MultiBinding>
+									</TextBlock.Text>
+								</TextBlock>
+							</Grid>
+
+							<Grid Grid.Column="3" Margin="15 0 15 0">
+								<Image Source="/Assets/watch_64.png" Width="64"/>
+								<TextBlock FontSize="16"  FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Intervalo,  StringFormat={}{0} Min}" VerticalAlignment="Bottom" />
+							</Grid>
+
+						</Grid>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+		</Grid>
+
+		<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Favoritos"/>
+			<Button Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Mis Reservas"/>
+			<Button Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Actividad"/>
+			<Button Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Perfil"/>
+		</StackPanel>
+		
+	</Grid>
+
+</Window>
